@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useFonts } from "expo-font";
-import "../global.css";
 // import "react-native-url-polyfill/auto";
 import { SplashScreen, Stack } from "expo-router";
+import GlobalProvider from "../context/GlobalProvider";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -20,7 +20,6 @@ const RootLayout = () => {
   });
 
   useEffect(() => {
-    console.log('Fonts Loaded:', fontsLoaded);
     if (error) throw error;
 
     if (fontsLoaded) {
@@ -37,12 +36,14 @@ const RootLayout = () => {
   }
 
   return (
+    <GlobalProvider>
       <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       {/*  <Stack.Screen name="/search/[query]" options={{ headerShown: false }} /> */} 
       </Stack>
+      </GlobalProvider>
   );
 };
 
